@@ -7,6 +7,6 @@ import androidx.room.PrimaryKey
 class Note(
     @PrimaryKey(autoGenerate = true)val id: Int=0,
     val title:String,
-    val content:String,
-    val timestamp:Long = System.currentTimeMillis()
+    val description:String,
+    val timestamp:Long = System.currentTimeMillis(),
 )
