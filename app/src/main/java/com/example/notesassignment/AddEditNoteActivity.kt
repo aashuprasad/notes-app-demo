@@ -2,8 +2,10 @@ package com.example.notesassignment
 
 import android.content.Intent
 import android.os.Bundle
+import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.EditText
+import android.widget.Spinner
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
@@ -64,6 +66,12 @@ class AddEditNoteActivity : AppCompatActivity() {
                     Toast.makeText(this, "$noteTitle Added", Toast.LENGTH_LONG).show()
                 }
             }
+
+            val colorSpinner = findViewById<Spinner>(R.id.color_spinner)
+            val colors = arrayOf("Red","Blue", "Green")
+            val colorAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, colors)
+            colorAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+            colorSpinner.adapter = colorAdapter
             startActivity(Intent(applicationContext, MainActivity::class.java))
             this.finish()
         }
