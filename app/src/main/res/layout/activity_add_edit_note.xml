@@ -1,19 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<ScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:scrollbars="none"
-    android:fillViewport="true"
-    >
-
-    <RelativeLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
     android:background="@color/white"
-    tools:context=".AddEditNoteActivity">
+    tools:context=".ModifyNoteActivity">
 
     <EditText
         android:id="@+id/idEdtNoteName"
@@ -47,15 +38,6 @@
         android:textColor="@color/black"
         android:textColorHint="@color/black" />
 
-    <Spinner
-        android:id="@+id/color_spinner"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/idEdtNoteDesc"
-        android:layout_alignParentEnd="true"
-        />
-
-
     <Button
         android:id="@+id/idBtn"
         android:layout_width="match_parent"
@@ -73,4 +55,3 @@
 
 
 </RelativeLayout>
-</ScrollView>
