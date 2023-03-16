@@ -1,2 +1,6 @@
-# notesAssignment
+# Notes Assignment
 please download app-debug apk to directly install the app- https://drive.google.com/file/d/1UyoMXuTWVhkJZiKJ8x0TqJ0GxdFvWj94/view?usp=share_link
+
+# Screenshots
+
+![Screenshot1](https://drive.google.com/file/d/1WDNgBN0c8nd6AyVnjKORj024L1pEviIK/view?usp=share_link) ![Screenshot1](https://drive.google.com/file/d/1FZ3K3Xsx5efTAs5-zyP_mINe5fW5mU1h/view?usp=share_link)
