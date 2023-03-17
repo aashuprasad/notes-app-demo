@@ -1,43 +1,82 @@
 package com.example.notesassignment.database
 
+import android.content.Context
+import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.room.Room
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import androidx.test.filters.SmallTest
-import com.google.common.truth.Truth.assertThat
-import kotlinx.coroutines.runBlocking
-import org.junit.After
-import org.junit.Assert
-import org.junit.Before
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.test.runBlockingTest
+import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
+import org.hamcrest.MatcherAssert.assertThat
+import org.hamcrest.Matchers.`is`
+import org.junit.After
+import org.junit.Before
+import java.util.concurrent.TimeoutException
 
+@ExperimentalCoroutinesApi
 @RunWith(AndroidJUnit4::class)
-@SmallTest
 class NoteDaoTest {
+    private lateinit var noteDao: NoteDao
     private lateinit var database: NoteDatabase
-    private lateinit var dao: NoteDao
+
+    @get:Rule
+    var instantTaskExecutorRule = InstantTaskExecutorRule()
 
     @Before
-    fun setup(){
-        database = Room.inMemoryDatabaseBuilder(
-            ApplicationProvider.getApplicationContext(),
-            NoteDatabase::class.java
-        ).allowMainThreadQueries().build()
-        dao = database.noteDao()
+    fun setup() {
+        val context = ApplicationProvider.getApplicationContext<Context>()
+        database = Room.inMemoryDatabaseBuilder(context, NoteDatabase::class.java)
+            .allowMainThreadQueries()
+            .build()
+        noteDao = database.noteDao()
     }
 
     @After
-    fun teardown(){
+    fun closeDb() {
         database.close()
     }
 
     @Test
-    fun addNote() = runBlocking {
-        val note = Note("Test Title", "Test Description", "16 Mar, 2023-18:00")
-        dao.addNote(note)
+    fun insertAndGetAllNotes() = runBlockingTest {
+        val note = Note(
+            "Title",
+            "Description",
+            "Timestamp"
+        )
+        noteDao.addNote(note)
+        val allNotes = noteDao.getAllNotes().getOrAwaitValue()
+        assertThat(allNotes.size, `is`(1))
+        assertThat(allNotes[0], `is`(note))
+    }
 
-        val allNotes = dao.getAllNotes().getOrAwaitValue()
-        assertThat(allNotes).contains(note)
+    @Test
+    fun updateNote() = runBlockingTest {
+        val note = Note(
+            "Title",
+            "Description",
+            "Timestamp"
+        )
+        noteDao.addNote(note)
+        note.title = "New Title"
+        noteDao.updateNote(note)
+        val allNotes = noteDao.getAllNotes().getOrAwaitValue()
+        assertThat(allNotes.size, `is`(1))
+        assertThat(allNotes[0].title, `is`("New Title"))
+    }
+    @Test
+    fun deleteNote() = runBlockingTest {
+        val note = Note(
+            "Title",
+            "Description",
+            "Timestamp"
+        )
+        noteDao.addNote(note)
+        noteDao.deleteNote(note)
+        val allNotes = noteDao.getAllNotes().getOrAwaitValue()
+        assertThat(allNotes.size, `is`(0))
     }
 }
+

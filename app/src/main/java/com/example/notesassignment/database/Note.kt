@@ -5,7 +5,7 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "notes")
 class Note(
-    val title: String,
+    var title: String,
     val description: String,
     val timestamp: String,
     ) {
