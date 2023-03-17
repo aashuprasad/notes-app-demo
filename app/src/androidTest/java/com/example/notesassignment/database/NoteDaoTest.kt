@@ -72,6 +72,7 @@ class NoteDaoTest {
             "Timestamp"
         )
         noteDao.addNote(note)
+      //  assertThat(allNotes.size, `is`(1))
         noteDao.deleteNote(note)
         val allNotes = noteDao.getAllNotes().getOrAwaitValue()
         assertThat(allNotes.size, `is`(0))
