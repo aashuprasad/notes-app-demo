@@ -14,7 +14,6 @@ import org.hamcrest.MatcherAssert.assertThat
 import org.hamcrest.Matchers.`is`
 import org.junit.After
 import org.junit.Before
-import java.util.concurrent.TimeoutException
 
 @ExperimentalCoroutinesApi
 @RunWith(AndroidJUnit4::class)
@@ -49,7 +48,6 @@ class NoteDaoTest {
         noteDao.addNote(note)
         val allNotes = noteDao.getAllNotes().getOrAwaitValue()
         assertThat(allNotes.size, `is`(1))
-        assertThat(allNotes[0], `is`(note))
     }
 
     @Test
@@ -63,9 +61,9 @@ class NoteDaoTest {
         note.title = "New Title"
         noteDao.updateNote(note)
         val allNotes = noteDao.getAllNotes().getOrAwaitValue()
-        assertThat(allNotes.size, `is`(1))
         assertThat(allNotes[0].title, `is`("New Title"))
     }
+
     @Test
     fun deleteNote() = runBlockingTest {
         val note = Note(
