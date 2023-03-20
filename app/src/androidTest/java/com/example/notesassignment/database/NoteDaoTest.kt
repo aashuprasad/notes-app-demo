@@ -1,11 +1,13 @@
 package com.example.notesassignment.database
 
 import android.content.Context
+import android.util.Log
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.room.Room
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.test.runBlockingTest
 import org.junit.Rule
 import org.junit.Test
@@ -72,9 +74,13 @@ class NoteDaoTest {
             "Timestamp"
         )
         noteDao.addNote(note)
-      //  assertThat(allNotes.size, `is`(1))
+        val notesBeforeDeletion = noteDao.getAllNotes().getOrAwaitValue()
+        Log.d("NoteDaoTest", "Deleting note with title: ${notesBeforeDeletion[0].title}")
+        delay(4000)
         noteDao.deleteNote(note)
+        delay(4000)
         val allNotes = noteDao.getAllNotes().getOrAwaitValue()
+        Log.d("NoteDaoTest", "note remaining: ${allNotes[0].title}")
         assertThat(allNotes.size, `is`(0))
     }
 }

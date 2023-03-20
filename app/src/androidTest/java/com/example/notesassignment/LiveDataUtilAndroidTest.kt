@@ -15,7 +15,7 @@ import java.util.concurrent.CountDownLatch
 import java.util.concurrent.TimeUnit
 import java.util.concurrent.TimeoutException
 
-fun <T> LiveData<T>.getOrAwaitValue(
+/*fun <T> LiveData<T>.getOrAwaitValue(
     time: Long = 10,
     timeUnit: TimeUnit = TimeUnit.SECONDS,
     afterObserver: (() -> Unit)? = null
@@ -45,10 +45,8 @@ fun <T> LiveData<T>.getOrAwaitValue(
 
     @Suppress("UNCHECKED_CAST")
     return data as T
-}
+}*/
 
-/*
-@VisibleForTesting(otherwise = VisibleForTesting.NONE)
 fun <T> LiveData<T>.getOrAwaitValue(
     time: Long = 2,
     timeUnit: TimeUnit = TimeUnit.SECONDS,
@@ -79,5 +77,5 @@ fun <T> LiveData<T>.getOrAwaitValue(
 
     @Suppress("UNCHECKED_CAST")
     return data as T
-}*/
+}
 
